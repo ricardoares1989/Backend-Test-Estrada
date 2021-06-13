@@ -1,10 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from .managers import CustomUserManager
+from backend_test.users.managers import CustomUserManager
+from backend_test.utils.timestamped_model import TimeStampedModel
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractUser, TimeStampedModel):
     username = None
     email = models.EmailField(
         "email address",
