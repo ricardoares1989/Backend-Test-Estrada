@@ -6,7 +6,7 @@ import pytest
 from django.contrib.auth import get_user_model
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def user_model():
     return get_user_model()
 
@@ -27,6 +27,13 @@ def password_generator():
     return password
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def user_data():
     return UserData("name@gmail.com", password_generator())
+
+
+@pytest.fixture(scope="function")
+def user(user_data, user_model):
+    return user_model.objects.create_user(
+        email=user_data.email, password=user_data.password
+    )
