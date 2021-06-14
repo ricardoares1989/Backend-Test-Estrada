@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import pytest
 
 from backend_test.menus.models import Meal, Menu, Options
@@ -10,6 +12,7 @@ def test_create_menu(date):
     assert menu.date == date
     assert not menu.closed
     assert str(menu) == f"Menu for - {menu.date}"
+    assert isinstance(menu.id, UUID)
 
 
 def test_create_option(meals):
