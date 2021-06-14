@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "backend_test.utils",
     "backend_test.users.apps.UsersConfig",
     "backend_test.menus.apps.MenusConfig",
+    "backend_test.requests.apps.RequestsConfig",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"

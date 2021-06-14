@@ -8,7 +8,9 @@ from backend_test.utils.timestamped_model import TimeStampedModel
 class Menu(TimeStampedModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField(unique=True)
-
+    meals = models.ManyToManyField(
+        "menus.Meal", through="Options", through_fields=("menu", "meal")
+    )
     closed = models.BooleanField(default=False)
 
     def __str__(self):
@@ -27,11 +29,8 @@ class Meal(TimeStampedModel):
 
 
 class Options(TimeStampedModel):
-    menu = models.ForeignKey(
-        Menu,
-        on_delete=models.CASCADE,
-    )
-    meals = models.ManyToManyField(Meal)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True)
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f"Menu {self.menu.date} - option {self.id}"
+        return f"Menu {self.menu.date} - {self.meal.name}"
