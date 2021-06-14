@@ -26,3 +26,19 @@ def test_superuser_creation(user_model, user_data):
     assert user.is_staff
     assert user.is_superuser
     assert user.is_active
+
+
+def test_superuser_isnt_superuser(user_model, user_data):
+    """test for raise a Exception when a user is not superuser"""
+    with pytest.raises(ValueError):
+        user_model.objects.create_superuser(
+            email=user_data.email, password=user_data.password, is_superuser=False
+        )
+
+
+def test_superuser_isnt_staff(user_model, user_data):
+    """test for raise a Exception when a user is not superuser"""
+    with pytest.raises(ValueError):
+        user_model.objects.create_superuser(
+            email=user_data.email, password=user_data.password, is_staff=False
+        )
