@@ -13,6 +13,9 @@ _usage() {
   echo "    pipi      without argument: installs packages defined in requirements.txt and requirements-local.txt"
   echo "              with argument:    installs given requirement"
   echo ""
+  echo "collect statics"
+  echo "    collect collect the statics"
+  echo ""
   echo "migrations"
   echo "    migrate   run pending migrations"
   echo "    makemig   make Django migrations"
@@ -66,6 +69,9 @@ makemigrations|makemigration|makemig)
 ;;
 sqlmig|sqlmigrate|sqlmigration)
   python manage.py sqlmigrate "$@"
+;;
+collect)
+  python manage.py collectstatic
 ;;
 *)
   _usage
