@@ -15,15 +15,13 @@ def test_create_menu(date):
     assert isinstance(menu.id, UUID)
 
 
-def test_create_option(meals):
+def test_create_meal(meals):
     meals = Meal.objects.bulk_create([Meal(**option) for option in meals])
     all_meals = Meal.objects.all()
     assert len(all_meals) == len(meals)
 
 
 def test_create_options(menu, meals_instances):
-    option = Options.objects.create(menu=menu)
-    option.meals.add(*meals_instances)
-    assert list(option.meals.all()) == meals_instances
-    assert option.menu == menu
-    assert str(option) == f"Menu {option.menu.date} - option {option.id}"
+    menu.meals.add(*meals_instances)
+    assert list(menu.meals.all()) == meals_instances
+    assert isinstance(menu.options_set.first(), Options)

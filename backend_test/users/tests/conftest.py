@@ -32,7 +32,7 @@ def user_data():
     return UserData("name@gmail.com", password_generator())
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def user(user_data, user_model):
     return user_model.objects.create_user(
         email=user_data.email, password=user_data.password
