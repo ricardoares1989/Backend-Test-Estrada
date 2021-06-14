@@ -6,6 +6,12 @@ from backend_test.utils.timestamped_model import TimeStampedModel
 
 
 class CustomUser(AbstractUser, TimeStampedModel):
+    """
+    CustomUser without username, only receive email and password.
+    Args:
+        email(str): String with email pattern.
+        password(str):
+    """
     username = None
     email = models.EmailField(
         "email address",

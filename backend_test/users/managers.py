@@ -16,7 +16,7 @@ class CustomUserManager(BaseUserManager):
                 and ascii.punctuation
             **kwargs (dict)
         Returns:
-            user (User):
+            user (CustomUser):
         """
         if not email:
             raise ValueError("The email must be set")
@@ -27,6 +27,17 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password, **kwargs):
+        """
+        Manager for create a superuser with the attributes of
+        is_staff, is_superuser and is_active.
+        Args:
+            email (str):
+            password (str):
+            **kwargs (Dict()):
+
+        Returns: CustomUser instance with superuser attributes.
+
+        """
         kwargs.setdefault("is_staff", True)
         kwargs.setdefault("is_superuser", True)
         kwargs.setdefault("is_active", True)

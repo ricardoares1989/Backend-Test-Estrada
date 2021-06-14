@@ -6,6 +6,9 @@ from backend_test.utils.timestamped_model import TimeStampedModel
 class Profile(TimeStampedModel):
     """
     Model to contain all the data that can change in a user.
+    Args:
+        user (CustomUser): Instance of CustomUser
+        country(Enum): Countries.choices
     """
 
     class Countries(models.TextChoices):

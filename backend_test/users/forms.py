@@ -4,6 +4,14 @@ from .models import CustomUser, Profile
 
 
 class UserCreationForm(forms.ModelForm):
+    """
+    Form to create a CustomUser, you need to validate
+    password twice.
+    Args:
+        password(str):
+        password2(str):
+        email (str): String with the email pattern example@domain.com
+    """
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Repeat password", widget=forms.PasswordInput)
 
@@ -22,6 +30,12 @@ class UserCreationForm(forms.ModelForm):
 
 
 class ProfileCreationForm(forms.ModelForm):
+    """
+    Form to create a Profile object associated with a CustomUser instance.
+    Args:
+        user (CustomUser): CustomUser Instance.
+        country (Choices): CustomUser.Countries
+    """
     class Meta:
         model = Profile
         fields = ("user", "country")

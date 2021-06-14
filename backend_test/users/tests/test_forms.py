@@ -10,10 +10,12 @@ class TestCreationForm:
 
     def test_create_user(self, user_data):
         """
-        Test the UserCreationForm
+        Given a email and password
+        When you enter the information in the UserCreationForm
+        then validate the form and retrieve a user instance.
         Args:
-            user_data (UserData): NamedTuple with email
-                and password.
+            user_data (NamedTuple(email, password)): NamedTuple with
+            email and password.
 
         """
         form = UserCreationForm(
@@ -29,9 +31,12 @@ class TestCreationForm:
 
     def test_create_profile(self, user):
         """
-        Test the ProfileCreationForm
+        Given a CustomUser
+        When you register your country in the ProfileCreationForm
+        Then retrieve a profile object and gives the attribute profile
+        to user.
         Args:
-            user (CustomUser):
+            user (CustomUser): Instance of CustomUser
         """
         form = ProfileCreationForm({"user": user, "country": "ch"})
         profile = form.save()
