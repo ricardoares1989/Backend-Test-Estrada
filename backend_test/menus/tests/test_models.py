@@ -9,6 +9,7 @@ def test_create_menu(date):
     menu = Menu.objects.create(date=date)
     assert menu.date == date
     assert not menu.closed
+    assert str(menu) == f"Menu for - {menu.date}"
 
 
 def test_create_option(meals):
@@ -22,3 +23,4 @@ def test_create_options(menu, meals_instances):
     option.meals.add(*meals_instances)
     assert list(option.meals.all()) == meals_instances
     assert option.menu == menu
+    assert str(option) == f"Menu {option.menu.date} - option {option.id}"
