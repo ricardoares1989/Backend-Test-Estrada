@@ -17,3 +17,12 @@ def test_create_profile(user):
     profile = Profile.objects.create(user=user, country=Profile.Countries.CHILE)
     assert profile.user == user
     assert profile.country == Profile.Countries.CHILE
+
+
+def test_superuser_creation(user_model, user_data):
+    user = user_model.objects.create_superuser(
+        email=user_data.email, password=user_data.password
+    )
+    assert user.is_staff
+    assert user.is_superuser
+    assert user.is_active
