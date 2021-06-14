@@ -42,3 +42,4 @@ bash: ## drops you into a running container
 .PHONY: rootbash
 rootbash: ## drops you into a running container as root
 	@docker exec -it -e RUNTYPE=bash --user=root $$(docker ps|grep cornershop-backend-test_backend|awk '{ print $$1 }') /docker-entrypoint.sh || true
+
