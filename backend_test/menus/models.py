@@ -1,9 +1,12 @@
+import uuid
+
 from django.db import models
 
 from backend_test.utils.timestamped_model import TimeStampedModel
 
 
 class Menu(TimeStampedModel):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField(unique=True)
 
     closed = models.BooleanField(default=False)
