@@ -1,7 +1,10 @@
+import datetime
+
 import pytest
 from django.template.loader import render_to_string
 
-from backend_test.menus.tasks import send_menu
+from backend_test.menus.models import Menu
+from backend_test.menus.tasks import close_menu, send_menu
 from backend_test.menus.utils import slack_notifier
 from backend_test.settings import SLACK_HOOK_CHANNELS as slack_channels
 
@@ -38,3 +41,14 @@ def test_send_menu_for_country(menu_with_meals):
         )
         == 200
     )
+
+
+def test_close_menu_task():
+    """
+    When creates a Menu, You need to close the menu
+    at the 11:00 am.
+    Then close_menu task close the menus.
+    """
+    menu = Menu.objects.create(date=datetime.datetime.now().date())
+    assert close_menu.run()
+    assert Menu.objects.get(id=menu.id).closed

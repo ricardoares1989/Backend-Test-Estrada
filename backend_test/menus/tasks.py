@@ -1,9 +1,15 @@
+from datetime import datetime
 from typing import Any, Callable
 
 from celery import shared_task
+from celery.schedules import crontab
+from celery.task import periodic_task
+from celery.utils.log import get_task_logger
 from django.template.loader import render_to_string
 
 from backend_test.menus.models import Menu
+
+logger = get_task_logger(__name__)
 
 
 @shared_task
@@ -23,3 +29,16 @@ def send_menu(
         {"menu_date": menu_date, "menu_url": menu_url, "menu_meals": menu_meals},
     )
     return notifier(template, destiny)
+
+
+@periodic_task(run_every=(crontab(hour=11)))
+def close_menu():
+
+    try:
+        menu = Menu.objects.get(date=datetime.now().date())
+        menu.closed = True
+        menu.save()
+        closed = menu.closed
+    except Menu.DoesNotExist:
+        closed = False
+    return closed
