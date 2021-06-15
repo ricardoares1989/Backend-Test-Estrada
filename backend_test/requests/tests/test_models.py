@@ -17,3 +17,5 @@ def test_request_creation(menu, option, user):
     """
     request = Request.objects.create(user=user, option=option)
     assert request.option.menu == menu
+    assert not (request.customization)
+    assert str(request) == f"{user.email} - {option.meal.name}"
