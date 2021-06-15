@@ -17,12 +17,20 @@ class Menu(TimeStampedModel):
         meals(List(Meal)): Meals for the Menu.
 
     """
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateField(unique=True)
     meals = models.ManyToManyField(
         "menus.Meal", through="Options", through_fields=("menu", "meal")
     )
     closed = models.BooleanField(default=False)
+
+    @property
+    def absolute_url(self):
+        return f"{self.id}"
+
+    def get_list_meals(self):
+        return list(self.meals.all().values("name", "description"))
 
     def __str__(self):
         return f"Menu for - {self.date}"
@@ -35,6 +43,7 @@ class Meal(TimeStampedModel):
         name(str): This field must be unique.
         description: Description of the meal.
     """
+
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField()
 
@@ -54,6 +63,7 @@ class Options(TimeStampedModel):
         menu(Menu): instance of Menu.
         meal(Meal): instance of Meal
     """
+
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE, null=True)
 

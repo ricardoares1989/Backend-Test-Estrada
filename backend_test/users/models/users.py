@@ -12,6 +12,7 @@ class CustomUser(AbstractUser, TimeStampedModel):
         email(str): String with email pattern.
         password(str):
     """
+
     username = None
     email = models.EmailField(
         "email address",

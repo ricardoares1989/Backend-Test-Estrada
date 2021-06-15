@@ -1,0 +1,34 @@
+{
+    "blocks": [
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "Good mornign team, the tasty today menu ({{ menu_date }}) es:"
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "section567",
+            "text": {
+                "type": "mrkdwn",
+                "text": "To select the options go to :point_right: *<{{ menu_url }}.com|Menu>* \n :rotating_light: Please select an option before 11:00AM :rotating_light:"
+            }
+        },
+        {
+			"type": "divider"
+		},
+        {% for meal in menu_meals %}
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": ":white_check_mark: {{ meal.name }} \n    description: {{ meal.description }}"
+            }
+        },
+        {% endfor %}
+        {
+			"type": "divider"
+		}
+    ]
+}

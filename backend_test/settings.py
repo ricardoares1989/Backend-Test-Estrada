@@ -242,3 +242,10 @@ LOGGING = {
         },
     },
 }
+
+
+### SLACK: set up slack destiny.
+SLACK_HOOKS_URL = "https://hooks.slack.com/services/"
+SLACK_HOOK_CHANNELS = {
+    "ch": "{}{}".format(SLACK_HOOKS_URL, getenv("SLACK_PATH_PUSH_NOTIFICATION_CH"))
+}

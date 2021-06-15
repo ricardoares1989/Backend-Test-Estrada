@@ -28,3 +28,9 @@ def meals_instances(meals):
 @pytest.fixture()
 def menu(date):
     return Menu.objects.create(date=date)
+
+
+@pytest.fixture()
+def menu_with_meals(menu, meals_instances):
+    menu.meals.add(*meals_instances)
+    return menu

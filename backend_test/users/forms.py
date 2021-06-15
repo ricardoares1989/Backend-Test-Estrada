@@ -12,6 +12,7 @@ class UserCreationForm(forms.ModelForm):
         password2(str):
         email (str): String with the email pattern example@domain.com
     """
+
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Repeat password", widget=forms.PasswordInput)
 
@@ -36,6 +37,7 @@ class ProfileCreationForm(forms.ModelForm):
         user (CustomUser): CustomUser Instance.
         country (Choices): CustomUser.Countries
     """
+
     class Meta:
         model = Profile
         fields = ("user", "country")
