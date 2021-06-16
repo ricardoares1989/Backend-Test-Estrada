@@ -27,7 +27,7 @@ class UserCreationForm(forms.ModelForm):
         cd = self.cleaned_data
         if cd["password"] != cd["password2"]:
             raise forms.ValidationError("Passwords dont't match.")
-        return cd["password2"]
+        return cd["password"]
 
 
 class ProfileCreationForm(forms.ModelForm):
@@ -41,3 +41,13 @@ class ProfileCreationForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ("user", "country")
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        kwargs.pop('request')
+        super().__init__(*args, **kwargs)
+

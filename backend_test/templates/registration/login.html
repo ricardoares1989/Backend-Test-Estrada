@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Signup{% endblock %}
+{% block title %}Login{% endblock %}
 {% block content  %}
-    <h1>Registrate</h1>
+    <h1>Login</h1>
     <form method="POST">{% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
-        <button type="submit">Guardar</button>
+        <button type="submit" value="login">Guardar</button>
     </form>
 {% endblock %}

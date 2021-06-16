@@ -1,6 +1,7 @@
 import pytest
 
 from backend_test.users.forms import ProfileCreationForm, UserCreationForm
+from backend_test.users.models import CustomUser
 
 pytestmark = pytest.mark.django_db
 
@@ -25,7 +26,8 @@ class TestCreationForm:
                 "password2": user_data.password,
             }
         )
-        user = form.save()
+        form.save()
+        user = CustomUser.objects.get(email=user_data.email)
         assert form.is_valid()
         assert user.email == user_data.email
 
