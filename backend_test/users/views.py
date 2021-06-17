@@ -3,7 +3,7 @@ from django.views.generic import CreateView
 from .forms import UserCreateForm
 
 
-class SignupUser(CreateView):
+class SignupUserView(CreateView):
     """
     Form View with the userCreationForm for signup
     to the application.
@@ -14,4 +14,4 @@ class SignupUser(CreateView):
     success_url = "/users/login/"
 
 
-user_signup_view = SignupUser.as_view()
+user_signup_view = SignupUserView.as_view()
