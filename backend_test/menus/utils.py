@@ -1,5 +1,7 @@
 import urllib3
 
+http = urllib3.PoolManager()
+
 
 def slack_notifier(slack_message: str, destiny: str) -> int:
     """
@@ -9,7 +11,7 @@ def slack_notifier(slack_message: str, destiny: str) -> int:
     Returns:
         status_code (int)
     """
-    http = urllib3.PoolManager()
+
     request = http.request(
         "POST",
         destiny,

@@ -115,6 +115,8 @@ CACHES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = ["backend_test.auth.EmailBackend"]
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -243,6 +245,7 @@ LOGGING = {
     },
 }
 
+LOGIN_REDIRECT_URL = "/"
 
 ### SLACK: set up slack destiny.
 SLACK_HOOKS_URL = "https://hooks.slack.com/services/"

@@ -1,33 +1,13 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import CustomUser, Profile
 
 
-class UserCreationForm(forms.ModelForm):
-    """
-    Form to create a CustomUser, you need to validate
-    password twice.
-    Args:
-        password(str):
-        password2(str):
-        email (str): String with the email pattern example@domain.com
-    """
-
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
-    password2 = forms.CharField(label="Repeat password", widget=forms.PasswordInput)
-
+class UserCreateForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ("email",)
-
-    def clean_password2(self):
-        """
-        Validate if the password match between password1 and password2.
-        """
-        cd = self.cleaned_data
-        if cd["password"] != cd["password2"]:
-            raise forms.ValidationError("Passwords dont't match.")
-        return cd["password"]
+        fields = ("email", "username")
 
 
 class ProfileCreationForm(forms.ModelForm):
@@ -41,13 +21,3 @@ class ProfileCreationForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ("user", "country")
-
-
-class LoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
-
-    def __init__(self, *args, **kwargs):
-        kwargs.pop('request')
-        super().__init__(*args, **kwargs)
-

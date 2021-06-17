@@ -16,7 +16,7 @@ services:
       - PYTHONDONTWRITEBYTECODE=1
       # forwarded from the host if they exist
       - UPDATE_PYTHON_REQUIREMENTS_ON_CONTAINERSTART
-      - SLACK_PATH_PUSH_NOTIFICATION_CH=${SLACK_PATH_PUSH_NOTIFICATION_CH:?err}
+      - SLACK_PATH_PUSH_NOTIFICATION_CH=${SLACK_PATH_PUSH_NOTIFICATION_CH:-/slack-channel}
     volumes:
       - .:/opt/cornershop/backend-test
     ports:
@@ -42,7 +42,6 @@ services:
       - QUEUES=celery
       # forwarded from the host if they exist
       - UPDATE_PYTHON_REQUIREMENTS_ON_CONTAINERSTART
-      - SLACK_PATH_PUSH_NOTIFICATION_CH=${SLACK_PATH_PUSH_NOTIFICATION_CH:?err}
   postgres:
     image: circleci/postgres:12.3-postgis
     volumes:

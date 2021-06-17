@@ -1,7 +1,6 @@
-from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView
 
-from .forms import UserCreationForm, LoginForm
+from .forms import UserCreateForm
 
 
 class SignupUser(CreateView):
@@ -11,17 +10,8 @@ class SignupUser(CreateView):
     """
 
     template_name = "users/signup.html"
-    form_class = UserCreationForm
+    form_class = UserCreateForm
     success_url = "/users/login/"
 
 
 user_signup_view = SignupUser.as_view()
-
-
-class LoginUserView(LoginView):
-    success_url = '/'
-    next = '/'
-    template_name = "registration/login.html"
-
-
-user_login_view = LoginUserView.as_view()

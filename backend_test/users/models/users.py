@@ -13,7 +13,6 @@ class CustomUser(AbstractUser, TimeStampedModel):
         password(str):
     """
 
-    username = None
     email = models.EmailField(
         "email address",
         unique=True,
