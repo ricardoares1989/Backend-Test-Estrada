@@ -75,3 +75,6 @@ class Options(TimeStampedModel):
 
     def __str__(self):
         return f"Menu {self.menu.date} - {self.meal.name}"
+
+    class Meta:
+        unique_together = ["menu", "meal"]

@@ -1,6 +1,7 @@
+from django import forms
 from django.forms import ModelForm
 
-from backend_test.menus.models import Meal
+from backend_test.menus.models import Meal, Menu, Options
 
 
 class MealCreationForm(ModelForm):
@@ -14,3 +15,11 @@ class MealCreationForm(ModelForm):
     class Meta:
         model = Meal
         fields = ("name", "description")
+
+
+class OptionsCreateForm(ModelForm):
+    menu = forms.ModelChoiceField(queryset=Menu.new_menus())
+
+    class Meta:
+        model = Options
+        fields = ("menu", "meal")

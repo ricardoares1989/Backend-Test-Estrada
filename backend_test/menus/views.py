@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 
-from backend_test.menus.forms import MealCreationForm
+from backend_test.menus.forms import MealCreationForm, OptionsCreateForm
 from backend_test.menus.models import Menu
 
 
@@ -31,3 +31,17 @@ class MealCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 
 meal_create_view = MealCreateView.as_view()
+
+
+class OptionsCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    form_class = OptionsCreateForm
+    success_url = reverse_lazy("menus:options")
+    template_name = "create_option.html"
+    login_url = reverse_lazy("users:login")
+    permission_denied_message = "Please you need superuser attribute"
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+options_create_view = OptionsCreateView.as_view()
