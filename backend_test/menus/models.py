@@ -1,6 +1,8 @@
 import uuid
 
 from django.db import models
+from django.urls import reverse
+from django.utils import timezone
 
 from backend_test.utils.timestamped_model import TimeStampedModel
 
@@ -27,10 +29,14 @@ class Menu(TimeStampedModel):
 
     @property
     def absolute_url(self):
-        return f"{self.id}"
+        return reverse("menus:detail", kwargs={"pk": self.id})
 
     def get_list_meals(self):
         return list(self.meals.all().values("name", "description"))
+
+    @classmethod
+    def new_menus(cls):
+        return cls.objects.filter(date__gte=timezone.now().date())
 
     def __str__(self):
         return f"Menu for - {self.date}"

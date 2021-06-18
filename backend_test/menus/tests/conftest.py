@@ -4,6 +4,7 @@ import pytest
 from django.utils import timezone
 
 from backend_test.menus.models import Meal, Menu
+from backend_test.users.tests.conftest import user, user_data, user_model
 
 
 @pytest.fixture()
@@ -34,3 +35,10 @@ def menu(date):
 def menu_with_meals(menu, meals_instances):
     menu.meals.add(*meals_instances)
     return menu
+
+
+@pytest.fixture()
+def superuser(user_data, user_model):
+    return user_model.objects.create_superuser(
+        email="super" + user_data.email, password=user_data.password
+    )

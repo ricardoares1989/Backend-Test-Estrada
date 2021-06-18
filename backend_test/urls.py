@@ -20,4 +20,5 @@ from .utils.healthz import healthz
 urlpatterns = [
     path("healthz", healthz, name="healthz"),
     path("users/", include("backend_test.users.urls", namespace="users"), name="users"),
+    path("menus/", include("backend_test.menus.urls", namespace="menus"), name="menus"),
 ]

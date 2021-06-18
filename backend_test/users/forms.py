@@ -5,9 +5,6 @@ from .models import CustomUser, Profile
 
 
 class UserCreateForm(UserCreationForm):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
     class Meta:
         model = CustomUser
         fields = ("email", "username")
@@ -20,8 +17,6 @@ class ProfileCreationForm(forms.ModelForm):
         user (CustomUser): CustomUser Instance.
         country (Choices): CustomUser.Countries
     """
-
-
 
     class Meta:
         model = Profile

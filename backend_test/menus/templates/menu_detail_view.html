@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+    Menu for {{ menu.date }}
+{% endblock %}
+{% block content %}
+<h1> The options on the menu are: </h1>
+    <ul>
+        {% for option in menu.get_list_meals %}
+        <li>
+            <h4>
+                <strong>option.name</strong><br>
+            </h4>
+            <p>option.description</p>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

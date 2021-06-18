@@ -246,6 +246,7 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 ### SLACK: set up slack destiny.
 SLACK_HOOKS_URL = "https://hooks.slack.com/services/"
