@@ -26,3 +26,11 @@ def test_create_options_url():
     """
     assert reverse("menus:create_options") == "/menus/options/"
     assert resolve("/menus/options/").view_name == "menus:create_options"
+
+
+def test_create_menu_url():
+    """
+    Resolve and get the url for create menus.
+    """
+    assert reverse("menus:create_menu") == "/menus/"
+    assert resolve("/menus/").view_name == "menus:create_menu"

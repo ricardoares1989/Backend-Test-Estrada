@@ -1,6 +1,20 @@
+from django.template.loader import render_to_string
+
 import urllib3
 
+from backend_test.menus.models import Menu
+
 http = urllib3.PoolManager()
+
+
+def menu_parser(menu: Menu, template: str):
+    menu_url = menu.absolute_url
+    menu_meals = menu.get_list_meals()
+    menu_date = menu.date
+    return render_to_string(
+        template,
+        {"menu_date": menu_date, "menu_url": menu_url, "menu_meals": menu_meals},
+    )
 
 
 def slack_notifier(slack_message: str, destiny: str) -> int:

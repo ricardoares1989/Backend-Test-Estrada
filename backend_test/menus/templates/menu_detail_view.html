@@ -8,9 +8,9 @@
         {% for option in menu.get_list_meals %}
         <li>
             <h4>
-                <strong>option.name</strong><br>
+                <strong>{{ option.name }}</strong><br>
             </h4>
-            <p>option.description</p>
+            <p>{{ option.description }}</p>
         </li>
         {% endfor %}
     </ul>

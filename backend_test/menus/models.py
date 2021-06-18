@@ -73,6 +73,12 @@ class Options(TimeStampedModel):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE, null=True)
 
+    @classmethod
+    def new_options(cls):
+        if timezone.now().hour > 11:
+            return cls.objects.filter(menu__date__gt=timezone.now().date())
+        return cls.objects.filter(menu__date__gte=timezone.now().date())
+
     def __str__(self):
         return f"Menu {self.menu.date} - {self.meal.name}"
 

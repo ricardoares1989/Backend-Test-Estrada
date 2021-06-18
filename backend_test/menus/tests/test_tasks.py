@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from backend_test.menus import utils
 from backend_test.menus.models import Menu
 from backend_test.menus.tasks import close_menu, send_menu
-from backend_test.menus.utils import slack_notifier
+from backend_test.menus.utils import menu_parser, slack_notifier
 from backend_test.settings import SLACK_HOOK_CHANNELS as slack_channels
 
 pytestmark = pytest.mark.django_db
@@ -40,10 +40,13 @@ def test_send_menu_for_country(menu_with_meals, monkeypatch):
     """
     monkeypatch.setattr(utils, "slack_notifier", (lambda *args, **kwargs: 200))
     slack_menu_notification = "slack_menu_notification.json"
+    template = menu_parser(
+        template=slack_menu_notification,
+        menu=menu_with_meals,
+    )
     assert (
         send_menu.run(
-            menu=menu_with_meals,
-            template=slack_menu_notification,
+            template=template,
             notifier=utils.slack_notifier,
             destiny=slack_channels["ch"],
         )
