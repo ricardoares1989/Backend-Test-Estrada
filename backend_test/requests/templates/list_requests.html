@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+    List Request
+{% endblock title %}
+{% block content%}
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Option</th>
+                </tr>
+                {% for request in  requests %}
+                <tr>
+                    <td>{{ request.user }}</td>
+                    <td>{{ request.option }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+{% endblock content %}
