@@ -6,6 +6,26 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
+    {% block nav %}
+        <nav>
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+                <a href="{% url 'users:logout' %}">Logout</a> |
+                <a href="{% url 'menus:create_menu' %}">Create Menu</a> |
+                <a href="{% url 'menus:all_list' %}">List All Menus</a> |
+                <a href="{% url 'menus:create_meal' %}">Create a Meal Option</a> |
+                <a href="{% url 'requests:list_request' %}">List Requests</a> |
+
+            {% elif  request.user.is_authenticated %}
+                <a href="{% url 'users:logout' %}">Logout</a> |
+                <a href="{% url 'requests:create_request' %}">Create Request</a> |
+            {% else %}
+                <a href="{% url 'users:login' %}">Login</a> |
+                <a href="{% url 'users:signup' %}">Signup</a> |
+            {% endif %}
+
+          <a href="{% url 'home' %}">Home</a>
+        </nav>
+    {% endblock nav %}
     {% block content %}
     {% endblock content %}
 </body>

@@ -26,7 +26,7 @@ class RequestListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     login_url = reverse_lazy("users:login")
     permission_denied_message = "Please you need superuser attribute"
     queryset = Request.today_requests()
-    context_object_name = 'requests'
+    context_object_name = "requests"
 
     def test_func(self):
         return self.request.user.is_superuser

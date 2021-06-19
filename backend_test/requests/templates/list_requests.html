@@ -7,11 +7,13 @@
                 <tr>
                     <th>User</th>
                     <th>Option</th>
+                    <th>Customization</th>
                 </tr>
                 {% for request in  requests %}
                 <tr>
                     <td>{{ request.user }}</td>
                     <td>{{ request.option }}</td>
+                    <td>{{ request.customization }}</td>
                 </tr>
                 {% endfor %}
             </table>
