@@ -24,4 +24,4 @@ class CustomUser(AbstractUser, TimeStampedModel):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return f"User - {self.username}"

@@ -1,9 +1,11 @@
 import uuid
 
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone
 
+from backend_test.users.models import CustomUser
 from backend_test.utils.timestamped_model import TimeStampedModel
 
 
@@ -78,6 +80,19 @@ class Options(TimeStampedModel):
         if timezone.now().hour > 11:
             return cls.objects.filter(menu__date__gt=timezone.now().date())
         return cls.objects.filter(menu__date__gte=timezone.now().date())
+
+    @classmethod
+    def exclude_options_and_menus_per_user(cls, user: CustomUser):
+        """
+        Receive a user, and let separate
+        """
+        menus = Menu.objects.filter(
+            options__request__user=user, date__gte=timezone.now().date()
+        ).values_list("id")
+        options_with_menu_user = cls.objects.filter(
+            Q(request__user=user) | Q(menu__id__in=menus)
+        ).values_list("id")
+        return cls.objects.exclude(id__in=options_with_menu_user)
 
     def __str__(self):
         return f"Menu {self.menu.date} - {self.meal.name}"

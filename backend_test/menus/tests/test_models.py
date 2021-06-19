@@ -46,3 +46,15 @@ def test_create_options(menu, meals_instances):
     menu.meals.add(*meals_instances)
     assert list(menu.meals.all()) == meals_instances
     assert isinstance(menu.options_set.first(), Options)
+
+
+def test_options_ids_per_user(menu_with_meals, user):
+    """
+    Given a user you and a menu with meals.
+    When you associate a option, with a request and a user.
+    Then you can't add another request for the same menu.
+    """
+    from backend_test.requests.models import Request
+
+    Request.objects.create(user=user, option=menu_with_meals.options_set.first())
+    assert len(Options.exclude_options_and_menus_per_user(user)) == 0

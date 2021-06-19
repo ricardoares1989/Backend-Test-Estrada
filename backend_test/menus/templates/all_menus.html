@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+    Menus
+{% endblock title %}
+{% block content %}
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Total meals</th>
+                </tr>
+                {% for menu in  menus %}
+                <tr>
+                    <td><a href="{% url 'menus:detail' pk=menu.id %}">{{ menu.id }}</a></td>
+                    <td>{{ menu.date }}</td>
+                    <td>{{ menu.get_list_meals|length }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+
+{% endblock content %}

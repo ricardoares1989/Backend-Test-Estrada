@@ -1,9 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
 
 from backend_test.menus.forms import MealCreationForm, MenuCreateForm, OptionsCreateForm
 from backend_test.menus.models import Menu
+
+
+class MenuListView(ListView):
+    queryset = Menu.objects.all().order_by("date")
+    context_object_name = "menus"
+    template_name = "all_menus.html"
+
+
+menu_all_view = MenuListView.as_view()
 
 
 class MenuDetailView(DetailView):

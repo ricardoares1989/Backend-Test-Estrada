@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from backend_test.menus.models import Meal, Menu, Options
 from backend_test.menus.tasks import send_menu
-from backend_test.menus.utils import menu_parser, slack_notifier
+from backend_test.menus.utils import menu_parser
 
 
 class MealCreationForm(ModelForm):
@@ -51,17 +51,18 @@ class MenuCreateForm(ModelForm):
         fields = ("date", "meals")
 
     def clean_date(self):
+        """Validate if the date its greater than the current date"""
         date = self.cleaned_data["date"]
-        if timezone.now().date() >= date:
+        if timezone.now().date() > date:
             raise forms.ValidationError("You can't create a menu for a past date.")
         return date
 
     def save(self, commit=True):
+        """Send the menu in the form saving."""
         menu = super(MenuCreateForm, self).save()
         template = menu_parser(menu=menu, template="slack_menu_notification.json")
         send_menu.delay(
             destiny=settings.SLACK_HOOK_CHANNELS["ch"],
-            notifier=slack_notifier,
             template=template,
         )
         return menu

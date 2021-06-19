@@ -4,7 +4,6 @@ from unittest.mock import Mock, patch
 import pytest
 from django.template.loader import render_to_string
 
-from backend_test.menus import utils
 from backend_test.menus.models import Menu
 from backend_test.menus.tasks import close_menu, send_menu
 from backend_test.menus.utils import menu_parser, slack_notifier
@@ -29,7 +28,8 @@ def test_slack_notifier(mock_http_request):
     assert slack_notifier(slack_message=slack_test_notification, destiny=destiny) == 200
 
 
-def test_send_menu_for_country(menu_with_meals, monkeypatch):
+@patch("backend_test.menus.utils.http")
+def test_send_menu_for_country(mock_http_request, menu_with_meals):
     """
     Given a menu with its meals.
     When you finish the meals capture.
@@ -38,7 +38,10 @@ def test_send_menu_for_country(menu_with_meals, monkeypatch):
     Args:
         menu_with_meals(Menu): Menu instance with meals.
     """
-    monkeypatch.setattr(utils, "slack_notifier", (lambda *args, **kwargs: 200))
+    status_mock = Mock()
+    status_mock.status = 200
+    attr = {"request.return_value": status_mock}
+    mock_http_request.configure_mock(**attr)
     slack_menu_notification = "slack_menu_notification.json"
     template = menu_parser(
         template=slack_menu_notification,
@@ -47,7 +50,6 @@ def test_send_menu_for_country(menu_with_meals, monkeypatch):
     assert (
         send_menu.run(
             template=template,
-            notifier=utils.slack_notifier,
             destiny=slack_channels["ch"],
         )
         == 200

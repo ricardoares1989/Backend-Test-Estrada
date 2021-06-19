@@ -16,9 +16,16 @@ Including another URLconf
 from django.urls import include, path
 
 from .utils.healthz import healthz
+from .utils.home_view import home_view
 
 urlpatterns = [
     path("healthz", healthz, name="healthz"),
     path("users/", include("backend_test.users.urls", namespace="users"), name="users"),
     path("menus/", include("backend_test.menus.urls", namespace="menus"), name="menus"),
+    path(
+        "requests/",
+        include("backend_test.requests.urls", namespace="requests"),
+        name="requests",
+    ),
+    path("", view=home_view, name="home"),
 ]
