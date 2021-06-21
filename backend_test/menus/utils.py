@@ -8,6 +8,15 @@ http = urllib3.PoolManager()
 
 
 def menu_parser(menu: Menu, template: str):
+    """
+    This function is for create a menu template, for send the notification.
+    The template it's any string format, like json, html, etc., and
+    use the django template engine and django template language to inject
+    the menu inside the template.
+    Args:
+        menu (Menu)
+        template (str)
+    """
     menu_url = menu.absolute_url
     menu_meals = menu.get_list_meals()
     menu_date = menu.date

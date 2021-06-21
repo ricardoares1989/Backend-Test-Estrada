@@ -24,7 +24,9 @@ def send_menu(template: str, destiny: str):
 
 @periodic_task(run_every=(crontab(hour=11)))
 def close_menu():
-
+    """
+    This periodic task is for close the current day menu.
+    """
     try:
         menu = Menu.objects.get(date=datetime.now().date())
         menu.closed = True

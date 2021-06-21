@@ -44,4 +44,13 @@ For that you need a email and password, and in the console,
 run `make up` afther that `python manage.py createsuperuser`,
 and configure his credentials, and it is all.
 
-
+> If you want to send the notifications, change the docker-compose file, in specific
+> the service backend without a `command` and type `docker-compose up`:
+> ```yaml
+> services:
+>  backend: &backend
+>    build:
+>      context: .
+>      dockerfile: .docker/Dockerfile_base
+>  #  command: shell
+> ```

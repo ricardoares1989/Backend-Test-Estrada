@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  backend:
+  backend: &backend
     build:
       context: .
       dockerfile: .docker/Dockerfile_base
@@ -25,6 +25,15 @@ services:
       - jupyterlab
       - postgres
       - redis
+  celeryworker:
+    <<: *backend
+    container_name: celeryworker
+    depends_on:
+      - redis
+      - backend
+      - postgres
+    ports: []
+    command: celery
   jupyterlab:
     build:
       context: .

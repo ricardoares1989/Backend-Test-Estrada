@@ -11,6 +11,10 @@ class RequestCreateForm(forms.ModelForm):
         fields = ("user", "option", "customization")
 
     def __init__(self, request, *args, **kwargs):
+        """
+        Insert the request in the form, with propose of extract the user,
+        that sends the request.
+        """
         self.request = request
         super().__init__(*args, **kwargs)
         self.fields["user"].queryset = CustomUser.objects.filter(

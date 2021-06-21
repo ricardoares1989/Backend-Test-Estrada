@@ -12,7 +12,7 @@
             "block_id": "section567",
             "text": {
                 "type": "mrkdwn",
-                "text": "To select the options go to :point_right: *<{{ menu_url }}.com|Menu>* \n :rotating_light: Please select an option before 11:00AM :rotating_light:"
+                "text": "To select the options go to :point_right: *<http://localhost:8000{{ menu_url }}|Menu>* \n :rotating_light: Please select an option before 11:00AM :rotating_light:"
             }
         },
         {
